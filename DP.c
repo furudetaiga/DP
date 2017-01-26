@@ -51,11 +51,9 @@ int main(int argc, char **argv){
     c = fscanf(fp1, "%lf", &data);
   }
   fclose(fp1);
-  printf("x[0]=%d", dist(0 ,4));
 
   length = malloc(sizeof(int)*MaxNum*((1<<(MaxNum-1))-1));
-  
-  printf("chinaamini \n");
+
   DP(now, visited, length);
   
   FindTheWay(now, visited, length);
@@ -83,22 +81,15 @@ int dist(int i, int j){
 int DP(int now, int visited, int **length){
   int country;
   int res = 99999;
-  printf("ol \n");
-      printf("now= %d, 0= 0", visited);
   if(visited == (1<<(num-1))-1){
-    printf("fool %d %d\n", now, visited);
     length[now][visited] = dist(0, now);
-    printf("make \n");
     return visited;
   }else{
     for(country = 1; country < num;country++){
-      printf("hehe\n");
       if(1<<(country-1) & visited)continue;
       if(res > dist(now, country) + length[country][DP(country,visited|(1<<(country-1)),length)])
-	printf("cooler \n");
       res = dist(now, country) + length[country][DP(country,visited|(1<<(country-1)),length)];
     }
-    printf("noob \n");
     length[now][visited] = res;
     return visited;
   }
